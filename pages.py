@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementClickInterceptedException
+
 class HomePage():
 
     def __init__(self, driver):
@@ -88,6 +89,7 @@ class SearchPage():
         self.driver.find_element_by_xpath(self.PAGE2).click()
     
     def add_favorites_third_product(self):
+        
         self.driver.execute_script("window.scrollTo(0, 1000)")
         product=self.driver.find_element_by_xpath(self.TARGET).text
         print("Target: "+product)
@@ -96,6 +98,7 @@ class SearchPage():
             print("Clicked Add to Favorites button!")
         except ElementClickInterceptedException:
             add_favorites_third_product()
+
         return product
 
     def already_favorites(self):
@@ -141,5 +144,3 @@ class FavoritesPage():
         except IndexError:
             print("Nothing Here!")
         self.driver.refresh()
-
-        

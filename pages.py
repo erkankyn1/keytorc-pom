@@ -71,28 +71,31 @@ class SearchPage():
 
     def check_product_search(self,item):
         productlist=self.driver.find_elements_by_xpath(self.PRODUCT_LIST)
-        for i in range(0,len(productlist)):
-            try:
-                print(productlist[i].text.lower())
-                assert item.lower() in productlist[i].text.lower()
-                print("Row: "+str(i)+" Matches Found!")
-                return i
-                break
-            except AssertionError:
-                print("Row: "+str(i)+" No matches found!")
+        if len(productlist)>0:
+            for i in range(0,len(productlist)):
+                try:
+                    print(productlist[i].text.lower())
+                    assert item.lower() in productlist[i].text.lower()
+                    print("Row: "+str(i)+" Matches Found!")
+                    return i
+                    break
+                except AssertionError:
+                    print("Row: "+str(i)+" No matches found!")
+        else:
+            print("This Page is Clear!")
 
     def go_to_second_page(self):
         self.driver.find_element_by_xpath(self.PAGE2).click()
-
+    
     def add_favorites_third_product(self):
+        self.driver.execute_script("window.scrollTo(0, 1000)")
         product=self.driver.find_element_by_xpath(self.TARGET).text
         print("Target: "+product)
-        self.driver.execute_script("window.scrollTo(0, 500)")
         try:
             self.driver.find_element_by_xpath(self.ADDFAVORITES).click()
             print("Clicked Add to Favorites button!")
         except ElementClickInterceptedException:
-            self.driver.execute_script("window.scrollTo(0, 700)")
+            add_favorites_third_product()
         return product
 
     def already_favorites(self):
@@ -132,6 +135,11 @@ class FavoritesPage():
             print("NoneType, Returned Value changed to '0'")
             returned_value=0
         print(returned_value)
-        self.driver.find_elements_by_class_name(self.DELETE)[int(returned_value)].click()
-        print("Delete Successful!")
+        try:
+            self.driver.find_elements_by_class_name(self.DELETE)[int(returned_value)].click()
+            print("Delete Successful!")
+        except IndexError:
+            print("Nothing Here!")
+        self.driver.refresh()
 
+        

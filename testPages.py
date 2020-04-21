@@ -33,10 +33,10 @@ class TestPages(unittest.TestCase):
         
         # Search Page
         Search=SearchPage(driver)
-        print("Searching Samsung word in the Results...")
+        print("Searching 'samsung' word in the Results...")
         Search.check_product_search(Home.SEARCHED_ITEM)
         Search.go_to_second_page()
-        self.assertTrue(Home.check_page_loaded())
+        self.assertEqual("https://www.n11.com/arama?q=samsung&pg=2",driver.current_url)
         # Return 3rd Item's name.
         returned3rd_item_name=Search.add_favorites_third_product()
         # Print 3rd Item's name

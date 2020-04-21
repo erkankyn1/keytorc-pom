@@ -4,6 +4,7 @@ from pages import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+import HtmlTestRunner
 
 class TestPages(unittest.TestCase):
 
@@ -60,4 +61,4 @@ class TestPages(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output="./"))

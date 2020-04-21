@@ -39,7 +39,6 @@ class TestPages(unittest.TestCase):
         # Return 3rd Item's name.
         returned3rd_item_name=Search.add_favorites_third_product()
         # Confirm Loaded 2nd Page.
-        self.assertTrue(Home.check_page_loaded())
         self.assertEqual("https://www.n11.com/arama?q=samsung&pg=2",driver.current_url)
         # Print 3rd Item's name
         Search.already_favorites()
@@ -53,7 +52,6 @@ class TestPages(unittest.TestCase):
         # Confirm Fav Page Loaded.
         self.assertEqual("https://www.n11.com/hesabim/favorilerim",driver.current_url)
         Search.check_product_search(returned3rd_item_name)
-
 
     def tearDown(cls):
         cls.driver.close()

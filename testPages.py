@@ -36,9 +36,11 @@ class TestPages(unittest.TestCase):
         print("Searching 'samsung' word in the Results...")
         Search.check_product_search(Home.SEARCHED_ITEM)
         Search.go_to_second_page()
-        self.assertEqual("https://www.n11.com/arama?q=samsung&pg=2",driver.current_url)
         # Return 3rd Item's name.
         returned3rd_item_name=Search.add_favorites_third_product()
+        # Confirm Loaded 2nd Page.
+        self.assertTrue(Home.check_page_loaded())
+        self.assertEqual("https://www.n11.com/arama?q=samsung&pg=2",driver.current_url)
         # Print 3rd Item's name
         Search.already_favorites()
         Search.slide_menu()
@@ -48,7 +50,9 @@ class TestPages(unittest.TestCase):
         Favorites.click_favorites_link()
         returned_3rd_item_location=Search.check_product_search(returned3rd_item_name)
         Favorites.delete_product(returned_3rd_item_location)
-
+        # Confirm Fav Page Loaded.
+        self.assertEqual("https://www.n11.com/hesabim/favorilerim",driver.current_url)
+        Search.check_product_search(returned3rd_item_name)
 
 
     def tearDown(cls):

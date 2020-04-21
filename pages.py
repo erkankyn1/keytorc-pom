@@ -9,7 +9,7 @@ class HomePage():
         self.driver        = driver
         self.SEARCH        = 'searchData'
         self.SEARCH_BUTTON = 'searchBtn'
-        self.SEARCHED_ITEM = 'Samsung'
+        self.SEARCHED_ITEM = 'samsung'
         self.LOGO          = 'logo'
         self.SIGN_IN       = 'btnSignIn'
 
@@ -54,6 +54,7 @@ class LoginPage():
         self.write_email(username)
         self.write_password(username)
 
+
 class SearchPage():
 
     def __init__(self, driver):
@@ -72,8 +73,8 @@ class SearchPage():
         productlist=self.driver.find_elements_by_xpath(self.PRODUCT_LIST)
         for i in range(0,len(productlist)):
             try:
-                print(productlist[i].text)
-                assert item in productlist[i].text
+                print(productlist[i].text.lower())
+                assert item.lower() in productlist[i].text.lower()
                 print("Row: "+str(i)+" Matches Found!")
                 return i
                 break

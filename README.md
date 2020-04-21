@@ -26,4 +26,5 @@ Python-pip
 selenium
 Selenium Chromedriver
 Unittest
+html-testRunner
 ```

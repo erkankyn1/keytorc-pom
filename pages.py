@@ -2,7 +2,7 @@ import users
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
-
+from selenium.common.exceptions import ElementClickInterceptedException
 class HomePage():
 
     def __init__(self, driver):
@@ -87,9 +87,12 @@ class SearchPage():
     def add_favorites_third_product(self):
         product=self.driver.find_element_by_xpath(self.TARGET).text
         print("Target: "+product)
-        self.driver.execute_script("window.scrollTo(0, 700)")
-        self.driver.find_element_by_xpath(self.ADDFAVORITES).click()
-        print("Clicked Add to Favorites button!")
+        self.driver.execute_script("window.scrollTo(0, 500)")
+        try:
+            self.driver.find_element_by_xpath(self.ADDFAVORITES).click()
+            print("Clicked Add to Favorites button!")
+        except ElementClickInterceptedException:
+            self.driver.execute_script("window.scrollTo(0, 700)")
         return product
 
     def already_favorites(self):

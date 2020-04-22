@@ -29,7 +29,8 @@ class Base():
 class HomePage(Base):
 
     def __init__(self, driver):
-        self.driver           = driver
+        # self.driver           = driver
+        super().__init__(driver)
         self.SEARCH           = 'searchData'
         self.SEARCH_BUTTON    = 'searchBtn'
         self.SEARCHED_ITEM    = 'samsung'
@@ -81,7 +82,7 @@ class LoginPage(Base):
         self.write_email(username)
         self.write_password(username)
 
-class SearchPage():
+class SearchPage(Base):
 
     def __init__(self, driver):
         self.driver = driver
@@ -125,7 +126,7 @@ class SearchPage():
         drag.perform()
         self.driver.find_element_by_xpath(self.MENU).click()
 
-class FavoritesPage():
+class FavoritesPage(Base):
 
     # Search target item in favorites menu
     def __init__(self, driver):

@@ -99,7 +99,6 @@ class SearchPage(Base):
         self.driver.find_element_by_xpath(self.PAGE2).click()
     
     def add_favorites_third_product(self):
-        
         self.driver.execute_script("window.scrollTo(0, 1000)")
         product=self.driver.find_element_by_xpath(self.TARGET).text
         print("Target: "+product)

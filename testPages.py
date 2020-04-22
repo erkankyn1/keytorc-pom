@@ -18,11 +18,14 @@ class TestPages(unittest.TestCase):
 
         driver=self.driver
 
+        # Base Class
+        BaseClass=Base(driver)
+
         # Homepage - Check Page Load!
         Home=HomePage(driver)
+        Home.check_kvkkmodel_warning()
         self.assertTrue(Home.check_page_loaded())
         Home.click_sign_in_button()
-        
         
         # Login Page
         Login=LoginPage(driver)
@@ -30,29 +33,30 @@ class TestPages(unittest.TestCase):
         self.assertEqual("https://www.n11.com/",driver.current_url)
         
         # Search In Home Page!
+        Home.check_kvkkmodel_warning()
         Home.click_search_item()
         
         # Search Page
         Search=SearchPage(driver)
         print("Searching 'samsung' word in the Results...")
-        Search.check_product_search(Home.SEARCHED_ITEM)
+        BaseClass.check_product_search(Home.SEARCHED_ITEM)
         Search.go_to_second_page()
         # Return 3rd Item's name.
         returned3rd_item_name=Search.add_favorites_third_product()
         # Confirm Loaded 2nd Page.
         self.assertEqual("https://www.n11.com/arama?q=samsung&pg=2",driver.current_url)
         # Print 3rd Item's name
-        Search.already_favorites()
+        Search.already_favorites(Home.DISPLAY_NONE)
         Search.slide_menu()
         
         # Favorites Page
         Favorites=FavoritesPage(driver)
         Favorites.click_favorites_link()
-        returned_3rd_item_location=Search.check_product_search(returned3rd_item_name)
+        returned_3rd_item_location=BaseClass.check_product_search(returned3rd_item_name)
         Favorites.delete_product(returned_3rd_item_location)
         # Confirm Fav Page Loaded.
         self.assertEqual("https://www.n11.com/hesabim/favorilerim",driver.current_url)
-        Search.check_product_search(returned3rd_item_name)
+        BaseClass.check_product_search(returned3rd_item_name)
 
     def tearDown(cls):
         cls.driver.close()

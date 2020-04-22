@@ -2,6 +2,9 @@
 
 This project created for Keytorc.
 
+### Notes
+
+* The chromedriver.exe file in the repository has the version of Chrome 81.
 
 Cases:
 
